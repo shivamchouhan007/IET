@@ -1,0 +1,84 @@
+
+
+	mysql> CREATE VIEW BRVIEW AS SELECT B_ID,B_NAME,BANK_ID FROM BRANCH;
+	Query OK, 0 rows affected (0.04 sec)
+
+	mysql> DESC BRVIEW;
+	+---------+-------------+------+-----+---------+-------+
+	| Field   | Type        | Null | Key | Default | Extra |
+	+---------+-------------+------+-----+---------+-------+
+	| B_ID    | char(5)     | NO   |     | NULL    |       |
+	| B_NAME  | varchar(20) | NO   |     | NULL    |       |
+	| BANK_ID | varchar(5)  | NO   |     | NULL    |       |
+	+---------+-------------+------+-----+---------+-------+
+	3 rows in set (0.01 sec)
+
+
+
+
+	mysql> INSERT INTO BRVIEW VALUES("HDFC1","HDFC","B04");	
+	Query OK, 1 row affected (0.04 sec)
+
+	mysql> SELECT * FROM BRVIEW;
+	+-------+-----------------+---------+
+	| B_ID  | B_NAME          | BANK_ID |
+	+-------+-----------------+---------+
+	| BOB01 | BAPU_BAZAR      | B01     |
+	| BOB02 | UNIVERSITY ROAD | B01     |
+	| PNB01 | MAIN            | B02     |
+	| PNB02 | SHOBHAGPURA     | B02     |
+	| PNB03 | MITRA NIWAS     | B02     |
+	| SBI01 | BAJAJ NAGAR     | B03     |
+	| SBI02 | BALAJI NAGAR    | B03     |
+	| SBI03 | COLLEGE ROAD    | B03     |
+	| HDFC1 | HDFC            | B04     |
+	+-------+-----------------+---------+
+	8 rows in set (0.00 sec)
+
+
+
+
+	mysql> DELETE FROM BRVIEW WHERE BANK_ID=04;
+	Query OK, 1 row affected (0.04 sec)
+	
+	mysql> SELECT * FROM BRVIEW;
+	+-------+-----------------+---------+
+	| B_ID  | B_NAME          | BANK_ID |
+	+-------+-----------------+---------+
+	| BOB01 | BAPU_BAZAR      | B01     |
+	| BOB02 | UNIVERSITY ROAD | B01     |
+	| PNB01 | MAIN            | B02     |
+	| PNB02 | SHOBHAGPURA     | B02     |
+	| PNB03 | MITRA NIWAS     | B02     |
+	| SBI01 | BAJAJ NAGAR     | B03     |
+	| SBI02 | BALAJI NAGAR    | B03     |
+	| SBI03 | COLLEGE ROAD    | B03     |
+	+-------+-----------------+---------+
+	8 rows in set (0.00 sec)
+
+
+
+	mysql> SHOW TABLES;
+	+----------------+
+	| Tables_in_bank |
+	+----------------+
+	| account        |
+	| bank           |
+	| branch         |
+	| brview         |
+	+----------------+
+	4 rows in set (0.00 sec)
+	
+	mysql> DROP VIEW BRVIEW;
+	Query OK, 0 rows affected (0.03 sec)
+	
+	mysql> SHOW TABLES;
+	+----------------+
+	| Tables_in_bank |
+	+----------------+
+	| account        |
+	| bank           |
+	| branch         |
+	+----------------+
+	3 rows in set (0.00 sec)
+

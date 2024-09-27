@@ -1,0 +1,152 @@
+
+
+	mysql> SELECT DISTINCT AC_TYPE FROM ACCOUNT;
+	+---------+
+	| AC_TYPE |
+	+---------+
+	| SAVINGS |
+	| CURRENT |
+	+---------+
+	2 rows in set (0.01 sec)
+
+	mysql> SELECT COUNT(DISTINCT AC_TYPE) FROM ACCOUNT;
+	+-------------------------+
+	| COUNT(DISTINCT AC_TYPE) |
+	+-------------------------+
+	|                       2 |
+	+-------------------------+
+	1 row in set (0.02 sec)
+
+	mysql> SELECT COUNT(DISTINCT INT_RATE) FROM ACCOUNT;
+	+--------------------------+	
+	| COUNT(DISTINCT INT_RATE) |
+	+--------------------------+
+	|                        3 |
+	+--------------------------+
+	1 row in set (0.00 sec)
+	
+	mysql> SELECT COUNT(*) DISTINCT_CITY FROM
+	(SELECT DISTINCT CUST_CITY FROM ACCOUNT)AS SUBQUERYALIAS;
+	+---------------+
+	| DISTINCT_CITY |
+	+---------------+
+	|             4 |
+	+---------------+
+	1 row in set (0.02 sec)
+
+
+
+
+
+	mysql> select * from account WHERE CUST_CITY="UDAIPUR";
+	+-------+-----------+---------+-------+----------+-----------+-----------+	
+	| AC_NO | CUST_NAME | AC_TYPE | BAL   | INT_RATE | CUST_CITY | BRANCH_ID |
+	+-------+-----------+---------+-------+----------+-----------+-----------+
+	|     3 | SHIVAM    | CURRENT | 21856 |       13 | UDAIPUR   | BOB01     |	
+	|     4 | SANJAY    | SAVINGS |  8932 |        7 | UDAIPUR   | BOB02     |
+	|     5 | ANJALI    | CURRENT | 16943 |        7 | UDAIPUR   | PNB01     |
+	|     6 | PRANJAL   | SAVINGS |  NULL |     NULL | UDAIPUR   | PNB02     |
+	+-------+-----------+---------+-------+----------+-----------+-----------+
+	4 rows in set (0.00 sec)
+
+	mysql> select * from account WHERE CUST_CITY="UDAIPUR" AND AC_TYPE="SAVINGS";
+	+-------+-----------+---------+------+----------+-----------+-----------+	
+	| AC_NO | CUST_NAME | AC_TYPE | BAL  | INT_RATE | CUST_CITY | BRANCH_ID |
+	+-------+-----------+---------+------+----------+-----------+-----------+
+	|     4 | SANJAY    | SAVINGS | 8932 |        7 | UDAIPUR   | BOB02     |
+	|     6 | PRANJAL   | SAVINGS | NULL |     NULL | UDAIPUR   | PNB02     |
+	+-------+-----------+---------+------+----------+-----------+-----------+
+	2 rows in set (0.00 sec)
+
+
+
+	mysql> select * from account ORDER BY CUST_NAME;
+	+-------+-----------+---------+-------+----------+-----------+-----------+
+	| AC_NO | CUST_NAME | AC_TYPE | BAL   | INT_RATE | CUST_CITY | BRANCH_ID |
+	+-------+-----------+---------+-------+----------+-----------+-----------+
+	|     5 | ANJALI    | CURRENT | 16943 |        7 | UDAIPUR   | PNB01     |
+	|     9 | NIDHI     | SAVINGS |  NULL |     NULL | DUNGARPUR | SBI03     |
+	|     6 | PRANJAL   | SAVINGS |  NULL |     NULL | UDAIPUR   | PNB02     |
+	|    10 | PRIYANKA  | CURRENT |  NULL |     NULL | JAIPUR    | SBI03     |
+	|     2 | RAJVEER   | SAVINGS | 29578 |        9 | DUNGARPUR | SBI03     |
+	|     8 | RANVEER   | CURRENT |  NULL |     NULL | JAIPUR    | SBI03     |
+	|     4 | SANJAY    | SAVINGS |  8932 |        7 | UDAIPUR   | BOB02     |
+	|     7 | SARTHAK   | CURRENT |  4569 |     NULL | JODHPUR   | SBI02     |
+	|     3 | SHIVAM    | CURRENT | 21856 |       13 | UDAIPUR   | BOB01     |
+	|     1 | VAMIT     | SAVINGS | 15690 |        7 | DUNGARPUR | PNB03     |
+	+-------+-----------+---------+-------+----------+-----------+-----------+
+	10 rows in set (0.00 sec)
+
+	mysql> select * from account ORDER BY CUST_NAME DESC;
+	+-------+-----------+---------+-------+----------+-----------+-----------+
+	| AC_NO | CUST_NAME | AC_TYPE | BAL   | INT_RATE | CUST_CITY | BRANCH_ID |
+	+-------+-----------+---------+-------+----------+-----------+-----------+
+	|     1 | VAMIT     | SAVINGS | 15690 |        7 | DUNGARPUR | PNB03     |
+	|     3 | SHIVAM    | CURRENT | 21856 |       13 | UDAIPUR   | BOB01     |
+	|     7 | SARTHAK   | CURRENT |  4569 |     NULL | JODHPUR   | SBI02     |
+	|     4 | SANJAY    | SAVINGS |  8932 |        7 | UDAIPUR   | BOB02     |
+	|     8 | RANVEER   | CURRENT |  NULL |     NULL | JAIPUR    | SBI03     |
+	|     2 | RAJVEER   | SAVINGS | 29578 |        9 | DUNGARPUR | SBI03     |
+	|    10 | PRIYANKA  | CURRENT |  NULL |     NULL | JAIPUR    | SBI03     |
+	|     6 | PRANJAL   | SAVINGS |  NULL |     NULL | UDAIPUR   | PNB02     |
+	|     9 | NIDHI     | SAVINGS |  NULL |     NULL | DUNGARPUR | SBI03     |
+	|     5 | ANJALI    | CURRENT | 16943 |        7 | UDAIPUR   | PNB01     |
+	+-------+-----------+---------+-------+----------+-----------+-----------+
+	10 rows in set (0.00 sec)
+
+
+
+
+
+	mysql> select COUNT(AC_TYPE),CUST_CITY 
+	from account GROUP BY CUST_CITY;
+	+----------------+-----------+
+	| COUNT(AC_TYPE) | CUST_CITY |
+	+----------------+-----------+
+	|              3 | DUNGARPUR |
+	|              4 | UDAIPUR   |
+	|              1 | JODHPUR   |
+	|              2 | JAIPUR    |
+	+----------------+-----------+
+	4 rows in set (0.00 sec)
+
+	mysql> select COUNT(AC_TYPE),CUST_CITY from account
+	GROUP BY CUST_CITY ORDER BY COUNT(AC_TYPE);
+	+----------------+-----------+
+	| COUNT(AC_TYPE) | CUST_CITY |
+	+----------------+-----------+
+	|              1 | JODHPUR   |
+	|              2 | JAIPUR    |
+	|              3 | DUNGARPUR |
+	|              4 | UDAIPUR   |
+	+----------------+-----------+
+	4 rows in set (0.00 sec)
+
+
+
+	mysql> select COUNT(AC_TYPE),CUST_CITY from account 
+	GROUP BY CUST_CITY HAVING COUNT(AC_TYPE)>4;
+	Empty set (0.00 sec)
+
+	mysql> select COUNT(AC_TYPE),CUST_CITY from account 
+	GROUP BY CUST_CITY HAVING COUNT(AC_TYPE)<4;
+	+----------------+-----------+
+	| COUNT(AC_TYPE) | CUST_CITY |
+	+----------------+-----------+
+	|              3 | DUNGARPUR |
+	|              1 | JODHPUR   |
+	|              2 | JAIPUR    |
+	+----------------+-----------+
+	3 rows in set (0.00 sec)
+
+	mysql> select COUNT(AC_TYPE),CUST_CITY from account 
+	GROUP BY CUST_CITY HAVING COUNT(AC_TYPE)<4 ORDER BY COUNT(AC_TYPE);
+	+----------------+-----------+
+	| COUNT(AC_TYPE) | CUST_CITY |
+	+----------------+-----------+
+	|              1 | JODHPUR   |
+	|              2 | JAIPUR    |
+	|              3 | DUNGARPUR |
+	+----------------+-----------+
+	3 rows in set (0.00 sec)
+

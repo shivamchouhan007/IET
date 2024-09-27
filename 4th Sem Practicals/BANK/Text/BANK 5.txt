@@ -1,0 +1,173 @@
+
+
+	mysql> SELECT AC_NO,CUST_NAME,B_ID,BANK_ID 
+	FROM ACCOUNT,BRANCH WHERE ACCOUNT.BRANCH_ID=BRANCH.B_ID;
+	+-------+-----------+-------+---------+
+	| AC_NO | CUST_NAME | B_ID  | BANK_ID |
+	+-------+-----------+-------+---------+
+	|     1 | VAMIT     | PNB03 | B02     |
+	|     2 | RAJVEER   | SBI03 | B03     |
+	|     3 | SHIVAM    | BOB01 | B01     |
+	|     4 | SANJAY    | BOB02 | B01     |
+	|     5 | ANJALI    | PNB01 | B02     |
+	|     6 | PRANJAL   | PNB02 | B02     |
+	|     7 | SARTHAK   | SBI02 | B03     |
+	|     8 | RANVEER   | SBI03 | B03     |
+	|     9 | NIDHI     | SBI03 | B03     |
+	|    10 | PRIYANKA  | SBI03 | B03     |
+	+-------+-----------+-------+---------+
+	10 rows in set (0.00 sec)
+
+
+	mysql> SELECT AC_NO,CUST_NAME,B_ID,BANK_ID 
+	FROM ACCOUNT,BRANCH WHERE ACCOUNT.BRANCH_ID=
+	BRANCH.B_ID AND BAL>15000;
+	+-------+-----------+-------+---------+
+	| AC_NO | CUST_NAME | B_ID  | BANK_ID |
+	+-------+-----------+-------+---------+
+	|     1 | VAMIT     | PNB03 | B02     |
+	|     2 | RAJVEER   | SBI03 | B03     |
+	|     3 | SHIVAM    | BOB01 | B01     |
+	|     5 | ANJALI    | PNB01 | B02     |
+	+-------+-----------+-------+---------+
+	4 rows in set (0.00 sec)
+
+
+
+
+	mysql> SELECT BR.B_ID,B.BANK_ID,B.BANK_NAME 
+	FROM BANK B,BRANCH BR;
+	+-------+---------+----------------------+	
+	| B_ID  | BANK_ID | BANK_NAME            |
+	+-------+---------+----------------------+
+	| BOB01 | B03     | STATE BANK OF INDIA  |	
+	| BOB01 | B02     | PUNJAB NATIONAL BANK |
+	| BOB01 | B01     | BANK OF BARODA       |
+	| BOB02 | B03     | STATE BANK OF INDIA  |
+	| BOB02 | B02     | PUNJAB NATIONAL BANK |
+	| BOB02 | B01     | BANK OF BARODA       |
+	| PNB01 | B03     | STATE BANK OF INDIA  |
+	| PNB01 | B02     | PUNJAB NATIONAL BANK |
+	| PNB01 | B01     | BANK OF BARODA       |
+	| PNB02 | B03     | STATE BANK OF INDIA  |
+	| PNB02 | B02     | PUNJAB NATIONAL BANK |
+	| PNB02 | B01     | BANK OF BARODA       |
+	| PNB03 | B03     | STATE BANK OF INDIA  |
+	| PNB03 | B02     | PUNJAB NATIONAL BANK |
+	| PNB03 | B01     | BANK OF BARODA       |
+	| SBI01 | B03     | STATE BANK OF INDIA  |
+	| SBI01 | B02     | PUNJAB NATIONAL BANK |
+	| SBI01 | B01     | BANK OF BARODA       |
+	| SBI02 | B03     | STATE BANK OF INDIA  |
+	| SBI02 | B02     | PUNJAB NATIONAL BANK |
+	| SBI02 | B01     | BANK OF BARODA       |
+	| SBI03 | B03     | STATE BANK OF INDIA  |
+	| SBI03 | B02     | PUNJAB NATIONAL BANK |
+	| SBI03 | B01     | BANK OF BARODA       |
+	+-------+---------+----------------------+
+	24 rows in set (0.00 sec)
+
+
+
+	mysql> SELECT B.BANK_ID,B.BANK_NAME,BR.B_ID,BR.B_NAME FROM 
+	BANK B INNER JOIN BRANCH BR ON (B.BANK_ID=BR.BANK_ID);
+	+---------+----------------------+-------+-----------------+
+	| BANK_ID | BANK_NAME            | B_ID  | B_NAME          |
+	+---------+----------------------+-------+-----------------+
+	| B01     | BANK OF BARODA       | BOB01 | BAPU_BAZAR      |
+	| B01     | BANK OF BARODA       | BOB02 | UNIVERSITY ROAD |
+	| B02     | PUNJAB NATIONAL BANK | PNB01 | MAIN            |
+	| B02     | PUNJAB NATIONAL BANK | PNB02 | SHOBHAGPURA     |
+	| B02     | PUNJAB NATIONAL BANK | PNB03 | MITRA NIWAS     |
+	| B03     | STATE BANK OF INDIA  | SBI01 | BAJAJ NAGAR     |
+	| B03  	  | STATE BANK OF INDIA  | SBI02 | BALAJI NAGAR    |
+	| B03     | STATE BANK OF INDIA  | SBI03 | COLLEGE ROAD    |
+	+---------+----------------------+-------+-----------------+
+	8 rows in set (0.00 sec)
+
+
+	mysql> SELECT B.BANK_ID,B.BANK_NAME,BR.B_ID,BR.B_NAME FROM 
+	BANK B NATURAL JOIN BRANCH BR;
+	+---------+----------------------+-------+-----------------+
+	| BANK_ID | BANK_NAME            | B_ID  | B_NAME          |
+	+---------+----------------------+-------+-----------------+
+	| B01     | BANK OF BARODA       | BOB01 | BAPU_BAZAR      |
+	| B01     | BANK OF BARODA       | BOB02 | UNIVERSITY ROAD |
+	| B02     | PUNJAB NATIONAL BANK | PNB01 | MAIN            |
+	| B02     | PUNJAB NATIONAL BANK | PNB02 | SHOBHAGPURA     |
+	| B02     | PUNJAB NATIONAL BANK | PNB03 | MITRA NIWAS     |
+	| B03     | STATE BANK OF INDIA  | SBI01 | BAJAJ NAGAR     |
+	| B03     | STATE BANK OF INDIA  | SBI02 | BALAJI NAGAR    |
+	| B03     | STATE BANK OF INDIA  | SBI03 | COLLEGE ROAD    |
+	+---------+----------------------+-------+-----------------+
+	8 rows in set (0.00 sec)
+
+
+	mysql> SELECT B.BANK_ID,B.BANK_NAME,BR.B_ID,BR.B_NAME FROM 
+	BANK B CROSS JOIN BRANCH BR;
+	+---------+----------------------+-------+-----------------+
+	| BANK_ID | BANK_NAME            | B_ID  | B_NAME          |
+	+---------+----------------------+-------+-----------------+
+	| B03     | STATE BANK OF INDIA  | BOB01 | BAPU_BAZAR      |
+	| B02     | PUNJAB NATIONAL BANK | BOB01 | BAPU_BAZAR      |	
+	| B01     | BANK OF BARODA       | BOB01 | BAPU_BAZAR      |
+	| B03     | STATE BANK OF INDIA  | BOB02 | UNIVERSITY ROAD |
+	| B02     | PUNJAB NATIONAL BANK | BOB02 | UNIVERSITY ROAD |
+	| B01     | BANK OF BARODA       | BOB02 | UNIVERSITY ROAD |
+	| B03     | STATE BANK OF INDIA  | PNB01 | MAIN            |
+	| B02     | PUNJAB NATIONAL BANK | PNB01 | MAIN            |	
+	| B01     | BANK OF BARODA       | PNB01 | MAIN            |
+	| B03  	  | STATE BANK OF INDIA  | PNB02 | SHOBHAGPURA     |
+	| B02     | PUNJAB NATIONAL BANK | PNB02 | SHOBHAGPURA     |
+	| B01     | BANK OF BARODA       | PNB02 | SHOBHAGPURA     |
+	| B03     | STATE BANK OF INDIA  | PNB03 | MITRA NIWAS     |
+	| B02     | PUNJAB NATIONAL BANK | PNB03 | MITRA NIWAS     |
+	| B01     | BANK OF BARODA       | PNB03 | MITRA NIWAS     |
+	| B03     | STATE BANK OF INDIA  | SBI01 | BAJAJ NAGAR     |
+	| B02     | PUNJAB NATIONAL BANK | SBI01 | BAJAJ NAGAR     |
+	| B01     | BANK OF BARODA       | SBI01 | BAJAJ NAGAR     |
+	| B03     | STATE BANK OF INDIA  | SBI02 | BALAJI NAGAR    |
+	| B02     | PUNJAB NATIONAL BANK | SBI02 | BALAJI NAGAR    |
+	| B01     | BANK OF BARODA       | SBI02 | BALAJI NAGAR    |	
+	| B03     | STATE BANK OF INDIA  | SBI03 | COLLEGE ROAD    |
+	| B02     | PUNJAB NATIONAL BANK | SBI03 | COLLEGE ROAD    |
+	| B01     | BANK OF BARODA       | SBI03 | COLLEGE ROAD    |
+	+---------+----------------------+-------+-----------------+
+	24 rows in set (0.00 sec)
+
+
+	mysql> SELECT B.BANK_ID,B.BANK_NAME,BR.B_ID,BR.B_NAME FROM BANK B 
+	RIGHT OUTER JOIN BRANCH BR ON (B.BANK_ID=BR.BANK_ID);
+	+---------+----------------------+-------+-----------------+
+	| BANK_ID | BANK_NAME            | B_ID  | B_NAME          |
+	+---------+----------------------+-------+-----------------+
+	| B01     | BANK OF BARODA       | BOB01 | BAPU_BAZAR      |	
+	| B01     | BANK OF BARODA       | BOB02 | UNIVERSITY ROAD |
+	| B02     | PUNJAB NATIONAL BANK | PNB01 | MAIN            |
+	| B02     | PUNJAB NATIONAL BANK | PNB02 | SHOBHAGPURA     |
+	| B02     | PUNJAB NATIONAL BANK | PNB03 | MITRA NIWAS     |
+	| B03     | STATE BANK OF INDIA  | SBI01 | BAJAJ NAGAR     |
+	| B03     | STATE BANK OF INDIA  | SBI02 | BALAJI NAGAR    |
+	| B03     | STATE BANK OF INDIA  | SBI03 | COLLEGE ROAD    |
+	+---------+----------------------+-------+-----------------+
+	8 rows in set (0.00 sec)
+	
+
+
+	mysql> SELECT B.BANK_ID,B.BANK_NAME,BR.B_ID,BR.B_NAME FROM BANK B 
+	LEFT OUTER JOIN BRANCH BR ON (B.BANK_ID=BR.BANK_ID);
+	+---------+----------------------+-------+-----------------+
+	| BANK_ID | BANK_NAME            | B_ID  | B_NAME          |
+	+---------+----------------------+-------+-----------------+
+	| B01     | BANK OF BARODA       | BOB01 | BAPU_BAZAR      |
+	| B01     | BANK OF BARODA       | BOB02 | UNIVERSITY ROAD |
+	| B02     | PUNJAB NATIONAL BANK | PNB01 | MAIN            |	
+	| B02     | PUNJAB NATIONAL BANK | PNB02 | SHOBHAGPURA     |
+	| B02     | PUNJAB NATIONAL BANK | PNB03 | MITRA NIWAS     |
+	| B03     | STATE BANK OF INDIA  | SBI01 | BAJAJ NAGAR     |
+	| B03     | STATE BANK OF INDIA  | SBI02 | BALAJI NAGAR    |
+	| B03     | STATE BANK OF INDIA  | SBI03 | COLLEGE ROAD    |
+	+---------+----------------------+-------+-----------------+	
+	8 rows in set (0.00 sec)
+
+

@@ -1,0 +1,198 @@
+
+
+	mysql> create database Bank;
+	Query OK, 1 row affected (0.43 sec)
+
+	mysql> use bank;
+	Database changed
+
+	mysql> create table Branch(B_ID char(5) PRIMARY KEY, B_NAME VARCHAR(20) NOT NULL, 
+	B_CITY VARCHAR(20) NOT NULL, BANK_ID VARCHAR(5) NOT NULL, 
+	FOREIGN KEY(BANK_ID) REFERENCES BANK(BANK_ID));
+	Query OK, 0 rows affected (0.10 sec)
+
+	mysql> DESC BRANCH;
+	+---------+-------------+------+-----+---------+-------+
+	| Field   | Type        | Null | Key | Default | Extra |
+	+---------+-------------+------+-----+---------+-------+
+	| B_ID    | char(5)     | NO   | PRI | NULL    |       |
+	| B_NAME  | varchar(20) | NO   |     | NULL    |       |
+	| B_CITY  | varchar(20) | NO   |     | NULL    |       |
+	| BANK_ID | varchar(5)  | NO   | MUL | NULL    |       |
+	+---------+-------------+------+-----+---------+-------+
+	4 rows in set (0.00 sec)
+
+
+	mysql> create table Bank(BANK_ID VARCHAR(5) PRIMARY KEY, 
+	BANK_NAME CHAR(20) NOT NULL, ADDRESS VARCHAR(30));
+	Query OK, 0 rows affected (0.11 sec)
+
+	mysql> DESC BANK;
+	+-----------+-------------+------+-----+---------+-------+
+	| Field     | Type        | Null | Key | Default | Extra |
+	+-----------+-------------+------+-----+---------+-------+
+	| BANK_ID   | varchar(5)  | NO   | PRI | NULL    |       |
+	| BANK_NAME | char(20)    | NO   |     | NULL    |       |
+	| ADDRESS   | varchar(30) | YES  |     | NULL    |       |
+	+-----------+-------------+------+-----+---------+-------+
+	4 rows in set (0.00 sec)
+
+
+	mysql> CREATE TABLE ACCOUNT(AC_NO INT PRIMARY KEY, CUST_NAME VARCHAR(20) NOT NULL, 
+	AC_TYPE VARCHAR(10) NOT NULL, BAL INT, INT_RATE INT, CUST_CITY VARCHAR(20) NOT NULL,
+	BRANCH_ID VARCHAR(5) NOT NULL, FOREIGN KEY(BRANCH_ID) 	REFERENCES BRANCH(B_ID));
+	Query OK, 0 rows affected (0.10 sec)
+	
+	mysql> DESC ACCOUNT;
+	+-----------+-------------+------+-----+---------+-------+
+	| Field     | Type        | Null | Key | Default | Extra |
+	+-----------+-------------+------+-----+---------+-------+
+	| AC_NO     | int         | NO   | PRI | NULL    |       |
+	| CUST_NAME | varchar(20) | NO   |     | NULL    |       |
+	| AC_TYPE   | varchar(10) | NO   |     | NULL    |       |
+	| BAL       | int         | YES  |     | NULL    |       |
+	| INT_RATE  | int         | YES  |     | NULL    |       |
+	| CUST_CITY | varchar(20) | NO   |     | NULL    |       |
+	| BRANCH_ID | varchar(5)  | NO   | MUL | NULL    |       |
+	+-----------+-------------+------+-----+---------+-------+
+	7 rows in set (0.00 sec)
+
+
+	mysql> SHOW TABLES;
+	+----------------+
+	| Tables_in_bank |
+	+----------------+
+	| account        |
+	| bank           |
+	| branch         |	
+	+----------------+
+	3 rows in set (0.04 sec)
+
+
+
+	mysql> INSERT INTO BRANCH VALUES("BOB01","BAPU_BAZAR","UDAIPUR","B01");
+	Query OK, 1 row affected (0.09 sec)
+	mysql> INSERT INTO BRANCH VALUES("BOB02","UNIVERSITY ROAD","UDAIPUR","B01");
+	Query OK, 1 row affected (0.03 sec)
+	mysql> INSERT INTO BRANCH VALUES("PNB01","MAIN","UDAIPUR","B02");
+	Query OK, 1 row affected (0.03 sec)
+	mysql> INSERT INTO BRANCH VALUES("PNB02","SHOBHAGPURA","UDAIPUR","B02");
+	Query OK, 1 row affected (0.02 sec)
+	mysql> INSERT INTO BRANCH VALUES("PNB03","MITRA NIWAS","DUNGARPUR","B02");
+	Query OK, 1 row affected (0.02 sec)
+	mysql> INSERT INTO BRANCH VALUES("SBI01","BAJAJ NAGAR","JAIPUR","B03");
+	Query OK, 1 row affected (0.02 sec)
+	mysql> INSERT INTO BRANCH VALUES("SBI02","BALAJI NAGAR","JODHPUR","B03");
+	Query OK, 1 row affected (0.02 sec)
+	mysql> INSERT INTO BRANCH VALUES("SBI03","COLLEGE ROAD","DUNGARPUR","B03");
+	Query OK, 1 row affected (0.04 sec)
+
+	mysql> SELECT *FROM BRANCH;
+	+-------+-----------------+-----------+---------+
+	| B_ID  | B_NAME          | B_CITY    | BANK_ID |
+	+-------+-----------------+-----------+---------+
+	| BOB01 | BAPU_BAZAR      | UDAIPUR   | B01     |
+	| BOB02 | UNIVERSITY ROAD | UDAIPUR   | B01     |
+	| PNB01 | MAIN            | UDAIPUR   | B02     |
+	| PNB02 | SHOBHAGPURA     | UDAIPUR   | B02     |
+	| PNB03 | MITRA NIWAS     | DUNGARPUR | B02     |
+	| SBI01 | BAJAJ NAGAR     | JAIPUR    | B03     |
+	| SBI02 | BALAJI NAGAR    | JODHPUR   | B03     |
+	| SBI03 | COLLEGE ROAD    | DUNGARPUR | B03     |
+	+-------+-----------------+-----------+---------+
+	8 rows in set (0.00 sec)
+
+
+	mysql> INSERT INTO BANK VALUES("B01","BANK OF BARODA","UNIVERSITY ROAD");
+	Query OK, 1 row affected (0.02 sec)
+	mysql> INSERT INTO BANK VALUES("B02","PUNJAB NATIONAL BANK","RATANPUR ROAD");
+	Query OK, 1 row affected (0.01 sec)
+	mysql> INSERT INTO BANK VALUES("B03","STATE BANK OF INDIA","COLLEGE ROAD");
+	Query OK, 1 row affected (0.01 sec)
+	
+	mysql> SELECT*FROM BANK;
+	+---------+----------------------+-----------------+
+	| BANK_ID | BANK_NAME            | ADDRESS         |
+	+---------+----------------------+-----------------+
+	| B01     | BANK OF BARODA       | UNIVERSITY ROAD |
+	| B02     | PUNJAB NATIONAL BANK | RATANPUR ROAD   |
+	| B03     | STATE BANK OF INDIA  | COLLEGE ROAD    |
+	+---------+----------------------+-----------------+
+	3 rows in set (0.00 sec)
+
+
+	mysql> INSERT INTO ACCOUNT VALUES(01,"VAMIT","SAVINGS",15690,7,"DUNGARPUR","PNB03");
+	Query OK, 1 row affected (0.05 sec)
+	mysql> INSERT INTO ACCOUNT VALUES(02,"RAJVEER","SAVINGS",29578,9,"DUNGARPUR","SBI03");
+	Query OK, 1 row affected (0.02 sec)
+	mysql> INSERT INTO ACCOUNT VALUES(03,"SHIVAM","CURRENT",21856,13,"UDAIPUR","BOB01");
+	Query OK, 1 row affected (0.03 sec)
+	mysql> INSERT INTO ACCOUNT VALUES(04,"SANJAY","SAVINGS",8932,7,"UDAIPUR","BOB02");
+	Query OK, 1 row affected (0.02 sec)
+	mysql> INSERT INTO ACCOUNT VALUES(05,"ANJALI","CURRENT",16943,7,"UDAIPUR","PNB01");
+	Query OK, 1 row affected (0.04 sec)
+	mysql> INSERT INTO ACCOUNT VALUES(06,"PRANJAL","SAVINGS",NULL,NULL,"UDAIPUR","PNB02");
+	Query OK, 1 row affected (0.03 sec)
+	mysql> INSERT INTO ACCOUNT VALUE(07,"SARTHAK","CURRENT",4569,NULL,"JODHPUR","SBI02");
+	Query OK, 1 rows affected (0.03 sec)
+	mysql> INSERT INTO ACCOUNT VALUES(08,"RANVEER","CURRENT",NULL,NULL,"JODHPUR","SBI02");
+	Query OK, 1 rows affected (0.05 sec)
+	mysql> INSERT INTO ACCOUNT VALUE(09,"NIDHI","SAVINGS",NULL,NULL,"DUNGARPUR","SBI03");
+	Query OK, 1 rows affected (0.02 sec)
+	mysql> INSERT INTO ACCOUNT VALUES(10,"PRIYANKA","CURRENT",NULL,NULL,"JAIPUR","SBI03");
+	Query OK, 1 rows affected (0.02 sec)
+	
+
+	mysql> SELECT * FROM ACCOUNT;
+	+-------+-----------+---------+-------+----------+-----------+-----------+
+	| AC_NO | CUST_NAME | AC_TYPE | BAL   | INT_RATE | CUST_CITY | BRANCH_ID |
+	+-------+-----------+---------+-------+----------+-----------+-----------+
+	|     1 | VAMIT     | SAVINGS | 15690 |        7 | DUNGARPUR | PNB03     |
+	|     2 | RAJVEER   | SAVINGS | 29578 |        9 | DUNGARPUR | SBI03     |
+	|     3 | SHIVAM    | CURRENT | 21856 |       13 | UDAIPUR   | BOB01     |
+	|     4 | SANJAY    | SAVINGS |  8932 |        7 | UDAIPUR   | BOB02     |
+	|     5 | ANJALI    | CURRENT | 16943 |        7 | UDAIPUR   | PNB01     |
+	|     6 | PRANJAL   | SAVINGS |  NULL |     NULL | UDAIPUR   | PNB02     |
+	|     7 | SARTHAK   | CURRENT |  4569 |     NULL | JODHPUR   | SBI02     |
+	|     8 | RANVEER   | CURRENT |  NULL |     NULL | JODHPUR   | SBI02     |
+	|     9 | NIDHI     | SAVINGS |  NULL |     NULL | DUNGARPUR | SBI03     |
+	|    10 | PRIYANKA  | CURRENT |  NULL |     NULL | JAIPUR    | SBI03     |
+	+-------+-----------+---------+-------+----------+-----------+-----------+
+	10 rows in set (0.01 sec)
+
+
+
+
+
+
+	mysql> drop table branch;
+	Query OK, 0 rows affected (0.08 sec)
+	
+
+
+	mysql> UPDATE ACCOUNT SET CUST_CITY="JAIPUR"  WHERE AC_NO=8;
+	Query OK, 1 row affected (0.03 sec)
+	Rows matched: 1  Changed: 1  Warnings: 0
+
+	mysql> UPDATE ACCOUNT SET BRANCH_ID="SBI03" WHERE AC_NO=8;
+	Query OK, 1 row affected (0.01 sec)
+	Rows matched: 1  Changed: 1  Warnings: 0
+
+	mysql> SELECT * FROM ACCOUNT;
+	+-------+-----------+---------+-------+----------+-----------+-----------+
+	| AC_NO | CUST_NAME | AC_TYPE | BAL   | INT_RATE | CUST_CITY | BRANCH_ID |
+	+-------+-----------+---------+-------+----------+-----------+-----------+
+	|     1 | VAMIT     | SAVINGS | 15690 |        7 | DUNGARPUR | PNB03     |
+	|     2 | RAJVEER   | SAVINGS | 29578 |        9 | DUNGARPUR | SBI03     |
+	|     3 | SHIVAM    | CURRENT | 21856 |       13 | UDAIPUR   | BOB01     |
+	|     4 | SANJAY    | SAVINGS |  8932 |        7 | UDAIPUR   | BOB02     |
+	|     5 | ANJALI    | CURRENT | 16943 |        7 | UDAIPUR   | PNB01     |
+	|     6 | PRANJAL   | SAVINGS |  NULL |     NULL | UDAIPUR   | PNB02     |
+	|     7 | SARTHAK   | CURRENT |  4569 |     NULL | JODHPUR   | SBI02     |
+	|     8 | RANVEER   | CURRENT |  NULL |     NULL | JAIPUR    | SBI03     |
+	|     9 | NIDHI     | SAVINGS |  NULL |     NULL | DUNGARPUR | SBI03     |
+	|    10 | PRIYANKA  | CURRENT |  NULL |     NULL | JAIPUR    | SBI03     |
+	+-------+-----------+---------+-------+----------+-----------+-----------+
+	10 rows in set (0.00 sec)
+
+

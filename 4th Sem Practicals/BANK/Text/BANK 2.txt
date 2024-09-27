@@ -1,0 +1,108 @@
+
+
+	mysql> SELECT AC_NO,CUST_NAME,BAL,BRANCH_ID 
+	FROM ACCOUNT WHERE BAL BETWEEN 15000 AND 25000;
+	+-------+-----------+-------+-----------+
+	| AC_NO | CUST_NAME | BAL   | BRANCH_ID |
+	+-------+-----------+-------+-----------+
+	|     1 | VAMIT     | 15690 | PNB03     |
+	|     3 | SHIVAM    | 21856 | BOB01     |
+	|     5 | ANJALI    | 16943 | PNB01     |
+	+-------+-----------+-------+-----------+
+	3 rows in set (0.01 sec)
+
+
+	mysql> SELECT AC_NO,CUST_NAME,BAL,BRANCH_ID FROM 
+	ACCOUNT WHERE INT_RATE IN(7);
+	+-------+-----------+-------+-----------+
+	| AC_NO | CUST_NAME | BAL   | BRANCH_ID |
+	+-------+-----------+-------+-----------+
+	|     1 | VAMIT     | 15690 | PNB03     |
+	|     4 | SANJAY    |  8932 | BOB02     |	
+	|     5 | ANJALI    | 16943 | PNB01     |
+	+-------+-----------+-------+-----------+
+	3 rows in set (0.00 sec)
+
+	mysql> SELECT AC_NO,CUST_NAME,BAL,BRANCH_ID FROM 
+	ACCOUNT WHERE INT_RATE IN(7,13);
+	+-------+-----------+-------+-----------+
+	| AC_NO | CUST_NAME | BAL   | BRANCH_ID |
+	+-------+-----------+-------+-----------+
+	|     1 | VAMIT     | 15690 | PNB03     |
+	|     3 | SHIVAM    | 21856 | BOB01     |
+	|     4 | SANJAY    |  8932 | BOB02     |
+	|     5 | ANJALI    | 16943 | PNB01     |
+	+-------+-----------+-------+-----------+
+	4 rows in set (0.00 sec)
+
+
+	mysql> SELECT AC_NO,CUST_NAME,BAL,BRANCH_ID FROM 
+	ACCOUNT WHERE INT_RATE NOT IN(7,13);
+	+-------+-----------+-------+-----------+
+	| AC_NO | CUST_NAME | BAL   | BRANCH_ID |
+	+-------+-----------+-------+-----------+
+	|     2 | RAJVEER   | 29578 | SBI03     |
+	+-------+-----------+-------+-----------+
+	1 row in set (0.00 sec)
+
+
+
+
+	mysql> select * from account where CUST_NAME LIKE "%S";
+	Empty set (0.00 sec)
+
+	mysql> select * from account where CUST_NAME LIKE "S%";
+	+-------+-----------+---------+-------+----------+-----------+-----------+
+	| AC_NO | CUST_NAME | AC_TYPE | BAL   | INT_RATE | CUST_CITY | BRANCH_ID |	
+	+-------+-----------+---------+-------+----------+-----------+-----------+
+	|     3 | SHIVAM    | CURRENT | 21856 |       13 | UDAIPUR   | BOB01     |
+	|     4 | SANJAY    | SAVINGS |  8932 |        7 | UDAIPUR   | BOB02     |
+	|     7 | SARTHAK   | CURRENT |  4569 |     NULL | JODHPUR   | SBI02     |
+	+-------+-----------+---------+-------+----------+-----------+-----------+
+	3 rows in set (0.00 sec)
+
+	mysql> select * from account where BAL IS NULL;
+	+-------+-----------+---------+------+----------+-----------+-----------+
+	| AC_NO | CUST_NAME | AC_TYPE | BAL  | INT_RATE | CUST_CITY | BRANCH_ID |
+	+-------+-----------+---------+------+----------+-----------+-----------+
+	|     6 | PRANJAL   | SAVINGS | NULL |     NULL | UDAIPUR   | PNB02     |
+	|     8 | RANVEER   | CURRENT | NULL |     NULL | JAIPUR    | SBI03     |
+	|     9 | NIDHI     | SAVINGS | NULL |     NULL | DUNGARPUR | SBI03     |
+	|    10 | PRIYANKA  | CURRENT | NULL |     NULL | JAIPUR    | SBI03     |
+	+-------+-----------+---------+------+----------+-----------+-----------+
+	4 rows in set (0.00 sec)
+
+	mysql> select * from account where CUST_NAME LIKE "%N%";
+	+-------+-----------+---------+-------+----------+-----------+-----------+
+	| AC_NO | CUST_NAME | AC_TYPE | BAL   | INT_RATE | CUST_CITY | BRANCH_ID |
+	+-------+-----------+---------+-------+----------+-----------+-----------+
+	|     4 | SANJAY    | SAVINGS |  8932 |        7 | UDAIPUR   | BOB02     |
+	|     5 | ANJALI    | CURRENT | 16943 |        7 | UDAIPUR   | PNB01     |
+	|     6 | PRANJAL   | SAVINGS |  NULL |     NULL | UDAIPUR   | PNB02     |
+	|     8 | RANVEER   | CURRENT |  NULL |     NULL | JAIPUR    | SBI03     |
+	|     9 | NIDHI     | SAVINGS |  NULL |     NULL | DUNGARPUR | SBI03     |
+	|    10 | PRIYANKA  | CURRENT |  NULL |     NULL | JAIPUR    | SBI03     |
+	+-------+-----------+---------+-------+----------+-----------+-----------+
+	6 rows in set (0.00 sec)
+
+	mysql> select * from account where CUST_NAME LIKE "%A%N%";
+	+-------+-----------+---------+-------+----------+-----------+-----------+
+	| AC_NO | CUST_NAME | AC_TYPE | BAL   | INT_RATE | CUST_CITY | BRANCH_ID |
+	+-------+-----------+---------+-------+----------+-----------+-----------+
+	|     4 | SANJAY    | SAVINGS |  8932 |        7 | UDAIPUR   | BOB02     |
+	|     5 | ANJALI    | CURRENT | 16943 |        7 | UDAIPUR   | PNB01     |
+	|     6 | PRANJAL   | SAVINGS |  NULL |     NULL | UDAIPUR   | PNB02     |
+	|     8 | RANVEER   | CURRENT |  NULL |     NULL | JAIPUR    | SBI03     |
+	|    10 | PRIYANKA  | CURRENT |  NULL |     NULL | JAIPUR    | SBI03     |
+	+-------+-----------+---------+-------+----------+-----------+-----------+
+	5 rows in set (0.00 sec)
+
+	mysql> select * from account where CUST_NAME LIKE "R______";
+	+-------+-----------+---------+-------+----------+-----------+-----------+
+	| AC_NO | CUST_NAME | AC_TYPE | BAL   | INT_RATE | CUST_CITY | BRANCH_ID |
+	+-------+-----------+---------+-------+----------+-----------+-----------+
+	|     2 | RAJVEER   | SAVINGS | 29578 |        9 | DUNGARPUR | SBI03     |
+	|     8 | RANVEER   | CURRENT |  NULL |     NULL | JAIPUR    | SBI03     |
+	+-------+-----------+---------+-------+----------+-----------+-----------+
+	2 rows in set (0.00 sec)
+
